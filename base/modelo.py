@@ -47,6 +47,9 @@ class Habilidad:
 	def __str__(self) -> str:
 		return str(self.nombre)
 	
+	def __repr__(self) -> str:
+		return str(self.nombre)
+	
 	def __eq__(self, other) -> bool:
 		if other == None:
 			return False
@@ -77,6 +80,15 @@ class Pieza:
 	
 	def __str__(self) -> str:
 		return f"{self.id}-{self.nombre}"
+	
+	def __repr__(self) -> str:
+		return f"{self.id}-{self.nombre}"
+	
+	def describe(self) ->  str:
+		txt = f"{self.id}-{self.nombre}"
+		for h, n in self.habilidades.lista.items():
+			txt += f"\n  {h} {n}"
+		return txt
 	
 class Joya:
 	def __init__(self, id, nombre="", nivel=1, habilidades={}):
@@ -117,7 +129,7 @@ class Store:
 			if habilidad in p.habilidades.lista:
 				yield p
 	
-	def findPiezas(self, habilidad: Habilidad = None, rango: Rango = None, parte: Parte = None):
+	def findPiezas(self, habilidad: Habilidad = None, rango: Rango = None, parte: Parte = None, nivel_habilidad=None):
 		for id, p in self.piezas.items():
 			if rango != None and not rango == p.rango:
 				continue
@@ -126,6 +138,9 @@ class Store:
 				continue
 			
 			if habilidad != None and not habilidad in p.habilidades.lista:
+				continue
+
+			if nivel_habilidad != None and p.habilidades.lista[habilidad] != nivel_habilidad:
 				continue
 			
 			yield p
