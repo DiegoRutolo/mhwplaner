@@ -126,14 +126,9 @@ class Store:
 		for id, h in self.habilidades.items():
 			if nombre in h.nombre:
 				yield h
-
-	def findPiezasConHabilidad(self, habilidad: Habilidad):
-		for id, p in self.piezas.items():
-			if habilidad in p.habilidades.lista:
-				yield p
 	
 	def findPiezas(self, habilidad: Habilidad = None, rango: Rango = None, 
-				parte: Parte = None, nivel_habilidad=None):
+				parte: Parte = None, nivel_habilidad: int = None):
 		for id, p in self.piezas.items():
 			if rango != None and not rango == p.rango:
 				continue
