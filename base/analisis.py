@@ -25,13 +25,13 @@ def print_piezas_por_habilidades(habilidades, store):
 				print("  ", h, n)
 
 class Set:
-	_multiplicadores = {
+	_multiplicadores = {	# Como se valora cada aspecto de una pieza
 		"defensa": 1,
-		"huecos_joya": 2,
-		"habilidad_deseada": 10,			# habilidad que interesa
-		"habilidad_deseada_completa": 25,	# todos los puntos posibles para una habilidad que interesa
-		"habilidad_no_deseada": 0,			# habilidad que no interesa
-		"habilidad_no_deseada_completa": 5,	# todos los puntos posibles para una habilidad que interesa
+		"huecos_joya": 5,
+		"habilidad_deseada": 20,			# habilidad que interesa
+		"habilidad_deseada_completa": 50,	# todos los puntos posibles para una habilidad que interesa
+		"habilidad_no_deseada": -1,			# habilidad que no interesa
+		"habilidad_no_deseada_completa": 1,	# todos los puntos posibles para una habilidad que interesa
 	}
 
 	def __init__(self, 
@@ -94,16 +94,16 @@ class Set:
 	
 	def _clasifica_piezas(self, piezas: Iterable[md.Pieza] = []) -> None:
 		""" Guarda todas las piezas indicadas en self.piezas_disponibles,
-		usando la parte como id, y ordenandolas por puntuacion
+		usando la parte como id, y ordenandolas por puntuacion descendente
 		"""
 		
-		piezas = map(lambda p: (p, self.puntua_pieza(p)), piezas)
+		piezas = list(map(lambda p: (p, self.puntua_pieza(p)), piezas))
 		# p[0] es la pieza, p[1] es la puntuacion
 		for pieza in piezas:
 			self.piezas_candidatas[pieza[0].parte].append(pieza)
 		
 		for parte, candidatas in self.piezas_candidatas.items():
-			candidatas = sorted(candidatas, key=lambda p: p[1], reverse=True)
+			self.piezas_candidatas[parte] = sorted(candidatas, key=lambda p: p[1], reverse=True)
 	
 	def puntua_pieza(self, pieza: md.Pieza) -> int:
 		puntos = 0
