@@ -13,6 +13,16 @@ s_ataque = store.habilidadByNombre("Attack Boost")
 habilidades = [s_guardia, s_artilleria, s_bloqueo_agro, s_capacidad]
 
 # a.dime_candidatas(habilidades, store)
-pantalones = store.piezas[1324]
-for p in store.findPiezas(habilidad=s_guardia, nivel_habilidad=2, rango=md.Rango.MAESTRO):
-	print(p.describe())
+
+# pantalones = store.piezas[1324]
+# 	print(p.describe())
+
+set = a.Set(habilidades)
+for h in habilidades:
+	for p in store.findPiezas(habilidad=h, rango=md.Rango.MAESTRO):
+		if not p in set.piezas_disponibles:
+			set.puntuaPiezaAnhade(p)
+
+# for pieza, puntos in sorted(set.piezas_disponibles.items(), key = lambda i: i[1]):
+# 	print(f"{pieza}: {puntos}")
+set.clasisicaCandidatas()

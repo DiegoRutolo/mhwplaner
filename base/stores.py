@@ -2,6 +2,10 @@ import requests
 import pickle
 import base.modelo as md
 
+"""
+Almacén con los datos de https://docs.mhw-db.com/
+Guarda los datos descargados en un archivo data/mhw_store.pickle
+"""
 class MhwDbStore(md.Store):
 
 	_ARCHIVO_COMPLETO = "data/mhw_store.pickle"
@@ -64,7 +68,12 @@ class MhwDbStore(md.Store):
 					idHabilidad = s["skill"]
 					nivel = s["level"]
 					habilidades.addHabilidad(self.habilidades[idHabilidad], nivel)
-				self.addPieza(id, md.Pieza(id, nombre, rango, parte, habilidades))
+				defensa_base = int(p["defense"]["base"])
+				n_huecos_joya = 0
+				for s in p["slots"]:
+					n_huecos_joya += int(s["rank"])
+				self.addPieza(id, md.Pieza(id, nombre, rango, parte, 
+						habilidades, defensa_base, n_huecos_joya))
 			except Exception as e:
 				if self.logs:
 					print(f"Error cargando {p}")
