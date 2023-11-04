@@ -16,5 +16,17 @@ piezas = []	# lista con todas las piezas que me interesan
 for h in habilidades:
 	piezas.extend(store.findPiezas(habilidad=h, rango=md.Rango.MAESTRO))
 
-set = a.Set(habilidades, piezas)
-print(set.get_info())
+estrategia = a.Estrategia(habilidades, piezas)
+intentos = 1000
+
+mejor_set = [0, a.build_random_set(estrategia.piezas_candidatas)]
+for i in range(intentos):
+	set = a.build_random_set(estrategia.piezas_candidatas)
+	puntos = estrategia.puntua_set(set)
+	if puntos > mejor_set[0]:
+		mejor_set[0] = puntos
+		mejor_set[1] = set
+
+
+print(mejor_set[0])
+print(mejor_set[1].get_info())
