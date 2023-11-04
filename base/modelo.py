@@ -73,11 +73,12 @@ class ListaHabilidades:
 class Pieza:
 	def __init__(self, id, nombre: str = "", rango: Rango = Rango.MAESTRO, 
 			parte: Parte = Parte.CIGUA, habilidades: ListaHabilidades = ListaHabilidades(),
-			defensa_base: int = 0, n_huecos_joya: int = 0):
+			defensa_base: int = 0, n_huecos_joya: int = 0, rareza: int = 1):
 		self.id = id
 		self.nombre = nombre
 		self.rango = rango
 		self.parte = parte
+		self.rareza = rareza
 		self.defensa_base = defensa_base
 		self.n_huecos_joya = n_huecos_joya	# suma de rangos de huecos
 		self.habilidades = habilidades
@@ -132,12 +133,16 @@ class Store:
 				yield h
 	
 	def findPiezas(self, habilidad: Habilidad = None, rango: Rango = None, 
-				parte: Parte = None, nivel_habilidad: int = None):
+				parte: Parte = None, nivel_habilidad: int = None,
+				rareza_max: int = None):
 		for id, p in self.piezas.items():
 			if rango != None and not rango == p.rango:
 				continue
 			
 			if parte != None and not parte == p.parte:
+				continue
+
+			if rareza_max != None and p.rareza > rareza_max:
 				continue
 			
 			if habilidad != None and not habilidad in p.habilidades.lista:

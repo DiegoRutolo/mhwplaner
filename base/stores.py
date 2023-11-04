@@ -63,6 +63,7 @@ class MhwDbStore(md.Store):
 				nombre = p["name"]
 				rango = md.Rango.get(p["rank"])
 				parte = md.Parte.get(p["type"])
+				rareza = p["rarity"]
 				habilidades = md.ListaHabilidades()
 				for s in p["skills"]:
 					idHabilidad = s["skill"]
@@ -73,7 +74,7 @@ class MhwDbStore(md.Store):
 				for s in p["slots"]:
 					n_huecos_joya += int(s["rank"])
 				self.addPieza(id, md.Pieza(id, nombre, rango, parte, 
-						habilidades, defensa_base, n_huecos_joya))
+						habilidades, defensa_base, n_huecos_joya, rareza))
 			except Exception as e:
 				if self.logs:
 					print(f"Error cargando {p}")

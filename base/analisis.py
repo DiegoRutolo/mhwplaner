@@ -13,7 +13,7 @@ def build_random_set(piezas_candidatas) -> md.Set:
 	return md.Set(a_equipar)
 	
 
-class Estrategia:
+class Analizador:
 	_multiplicadores = {	# Como se valora cada aspecto de una pieza o set
 		"defensa": 1,
 		"huecos_joya": 5,
