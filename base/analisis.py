@@ -16,11 +16,11 @@ def build_random_set(piezas_candidatas) -> md.Set:
 class Analizador:
 	_multiplicadores = {	# Como se valora cada aspecto de una pieza o set
 		"defensa": 1,
-		"huecos_joya": 5,
+		"huecos_joya": 7,
 		"habilidad_deseada": 20,			# habilidad que interesa
 		"habilidad_deseada_completa": 100,	# todos los puntos posibles para una habilidad que interesa
-		"habilidad_no_deseada": -1,			# habilidad que no interesa
-		"habilidad_no_deseada_completa": 1,	# todos los puntos posibles para una habilidad que interesa
+		"habilidad_no_deseada": 0,			# habilidad que no interesa
+		"habilidad_no_deseada_completa": 10,	# todos los puntos posibles para una habilidad que interesa
 	}
 
 	def __init__(self,
